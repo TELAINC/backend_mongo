@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: .
+    container_name: backend-app
+    ports:
+      - "3900:3900"
+    networks:
+      - mi_red
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db  # <-- Aquí se guarda la base de datos
+    networks:
+      - mi_red
+
+networks:
+  mi_red:
+
+volumes:
+  mongo_data:  # <-- Declaración del volumen
+
